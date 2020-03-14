@@ -9,14 +9,30 @@ class ThreadTest extends TestCase
 {
 
     use RefreshDatabase;
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->thread = factory('App\Thread')->create();
+    }
+
+    public function testThreadCanHaveReplies()
+    {
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->thread->replies);
+    }
+
     public function testThreadHasACreator()
     {
-        $thread = factory('App\Thread')->create();
-        $this->assertInstanceOf('App\User', $thread->creator);
+        $this->assertInstanceOf('App\User', $this->thread->creator);
+    }
+
+    public function testReplyCanBeAddedToAThread()
+    {
+        $this->thread->addReply([
+            'body' => 'Foo Bar',
+            'user_id' => 1
+        ]);
+
+        $this->assertCount(1, $this->thread->replies);
     }
 }

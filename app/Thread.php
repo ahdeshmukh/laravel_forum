@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+
+    // https://laravel.com/docs/7.x/eloquent#mass-assignment
+    protected $guarded = [];
+
     public function path()
     {
         return '/threads/'. $this->id;
@@ -19,5 +23,10 @@ class Thread extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function addReply($reply)
+    {
+        $this->replies()->create($reply);
     }
 }
