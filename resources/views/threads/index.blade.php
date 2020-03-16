@@ -14,7 +14,7 @@
                                             {{ $thread->title }}
                                         </a>
                                     </h4>
-                                    <h6>Posted by {{ $thread->creator->name }}</h6>
+                                    <h6>Posted by {{ $thread->creator->first_name }} {{ $thread->creator->last_name }}</h6>
                                     <div class="body">{{ $thread->body }}</div>
                                 </article>
                             </div>

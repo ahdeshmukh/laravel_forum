@@ -38,6 +38,11 @@ class ThreadsTest extends TestCase
 
     public function testUserCanSeeWhoCreatedThread()
     {
+        // on threads page
+        $this->get('/threads')
+            ->assertSee('Posted by '.$this->thread->creator->first_name.' '.$this->thread->creator->last_name);
+
+        // on individual thread page
         $this->get($this->thread->path())
             ->assertSee('Posted by '.$this->thread->creator->first_name.' '.$this->thread->creator->last_name);
     }
