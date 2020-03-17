@@ -18,6 +18,8 @@ class Thread extends Model
     public function replies()
     {
         return $this->hasMany(Reply::class);
+        // to arrange latest replies on top
+        // return $this->hasMany(Reply::class)->latest();
     }
 
     public function creator()

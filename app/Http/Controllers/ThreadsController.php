@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
 {
+    public function __construct()
+    {
+        // only need auth while creating a thread, not while viewing it
+        $this->middleware('auth')->only('store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +42,13 @@ class ThreadsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $thread = Thread::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'user_id' => auth()->id()
+        ]);
+
+        return redirect($thread->path());
     }
 
     /**
@@ -47,7 +59,6 @@ class ThreadsController extends Controller
      */
     public function show(Thread $thread)
     {
-        //return $thread;
         return view('threads.show', compact('thread'));
     }
 
