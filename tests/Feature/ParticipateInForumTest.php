@@ -15,7 +15,7 @@ class ParticipateInForumTest extends TestCase
      * When a user adds a reply to the thread, it should be visible on the page
      * @return void
      */
-    public function testAuthUserMayParticipateInForumThreads()
+    public function test_auth_user_may_participate_in_forum_threads()
     {
         $this->be(factory('App\User')->create()); // create a user and authenticate using be()
         $thread = factory('App\Thread')->create();
@@ -29,7 +29,7 @@ class ParticipateInForumTest extends TestCase
             ->assertSee($reply->body);
     }
 
-    public function testUnauthorizedUsersCannotAddReplies()
+    public function test_unauthorized_users_cannot_add_replies()
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
         $this->post('/threads/1/replies', []);

@@ -15,19 +15,19 @@ class ThreadsTest extends TestCase
         $this->thread = factory('App\Thread')->create();
     }
 
-    public function testUserCanSeeThreads()
+    public function test_user_can_see_threads()
     {
         $this->get('/threads')
             ->assertSee($this->thread->title);
     }
 
-    public function testUserCanSeeASingleThread()
+    public function test_user_can_see_a_single_thread()
     {
         $this->get($this->thread->path())
             ->assertSee($this->thread->title);
     }
 
-    public function testUserCanSeeRepliesToAThread()
+    public function test_user_can_see_replies_to_a_thread()
     {
         $reply = factory('App\Reply')
             ->create(['thread_id' => $this->thread->id]);
@@ -36,7 +36,7 @@ class ThreadsTest extends TestCase
             ->assertSee($reply->body);
     }
 
-    public function testUserCanSeeWhoCreatedThread()
+    public function test_user_can_see_who_created_thread()
     {
         // on threads page
         $this->get('/threads')
