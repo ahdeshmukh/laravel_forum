@@ -19,7 +19,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+            // https://pixelcave.com/blog/how-to-redirect-back-to-original-url-after-successful-login-in-laravel
+            //return redirect(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
 
         return $next($request);
