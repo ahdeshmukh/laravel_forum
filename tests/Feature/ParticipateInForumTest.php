@@ -17,7 +17,7 @@ class ParticipateInForumTest extends TestCase
      */
     public function test_auth_user_may_participate_in_forum_threads()
     {
-        $this->actingAs(create('App\User')); // create a user and authenticate using be()
+        $this->signIn();
         $thread = create('App\Thread');
         $reply = make('App\Reply');
 
