@@ -20,10 +20,17 @@ class CreateThreadsTest extends TestCase
             ->assertSee($thread->body);
     }
 
-    public function test_an_unauthenticated_users_cannot_create_new_forum_threads()
+    public function test_unauthenticated_users_cannot_create_new_forum_threads()
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
         $thread = make('App\Thread');
         $this->post('/threads', $thread->toArray());
+    }
+
+    public function test_unauthenticated_users_cannot_see_create_thread_page()
+    {
+        $this->withExceptionHandling()
+            ->get('/threads/create')
+            ->assertRedirect('/login');
     }
 }

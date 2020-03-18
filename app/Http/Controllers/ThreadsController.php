@@ -10,7 +10,7 @@ class ThreadsController extends Controller
     public function __construct()
     {
         // only need auth while creating a thread, not while viewing it
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     /**
@@ -31,7 +31,7 @@ class ThreadsController extends Controller
      */
     public function create()
     {
-        //
+        return view('threads.create');
     }
 
     /**
