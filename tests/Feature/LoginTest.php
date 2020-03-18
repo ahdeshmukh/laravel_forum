@@ -19,7 +19,7 @@ class LoginTest extends TestCase
         ]);
 
         // create a thread
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
 
         // visit the thread page
         $this->get($thread->path());
