@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mockery\Mock;
 use Tests\TestCase;
 
 class ThreadsTest extends TestCase
@@ -25,6 +26,13 @@ class ThreadsTest extends TestCase
     {
         $this->get($this->thread->path())
             ->assertSee($this->thread->title);
+    }
+
+    public function test_user_sees_404_for_thread_for_channel_that_does_not_exist()
+    {
+        // here the channel slug is wrong on purpose
+        $response = $this->withExceptionHandling()->get("/threads/some-channel/{$this->thread->id}");
+        $this->assertEquals(404, $response->getStatusCode());
     }
 
     public function test_user_can_see_replies_to_a_thread()
