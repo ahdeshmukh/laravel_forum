@@ -50,11 +50,17 @@ class ThreadsController extends Controller
     {
         // channel id should exist in channels table
 
-        $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
-            'channel_id' => 'required|exists:channels,id'
-        ]);
+        $this->validate($request,
+            array(
+                'title' => 'required',
+                'body' => 'required',
+                'channel_id' => 'required|exists:channels,id'
+            ),
+            array(
+                'channel_id.required' => 'Channel is required',
+                'channel_id.exists' => 'Channel does not exist'
+            )
+        );
 
         $thread = Thread::create([
             'title' => $request->title,
