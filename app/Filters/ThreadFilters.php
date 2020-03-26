@@ -2,25 +2,13 @@
 
 namespace App\Filters;
 
-use Illuminate\Http\Request;
-
-class ThreadFilters
+class ThreadFilters extends Filters
 {
 
-    protected $request;
+    protected $filters = ['userId'];
 
-    public function __construct(Request $request)
+    protected function userId($userId)
     {
-        $this->request = $request;
-    }
-
-    public function apply($builder)
-    {
-        if(!$this->request->user_id) {
-            return $builder;
-        }
-
-        return $builder->where('user_id', $this->request->user_id);
-
+        return $this->builder->where('user_id', $userId);
     }
 }
