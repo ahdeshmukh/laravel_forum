@@ -10,6 +10,18 @@ class Thread extends Model
     // https://laravel.com/docs/7.x/eloquent#mass-assignment
     protected $guarded = [];
 
+    // Laravel knows this function needs to be invoked automatically
+    protected static function boot()
+    {
+        parent::boot();
+
+        // adding count of replies to all thread queries
+        // https://laravel.com/docs/5.8/eloquent#global-scopes
+        static::addGlobalScope('replyCount', function($builder) {
+            $builder->withCount('replies');
+        });
+    }
+
     public function path()
     {
         //return '/threads/'. $this->id;

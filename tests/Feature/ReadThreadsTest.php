@@ -47,11 +47,11 @@ class ThreadsTest extends TestCase
     {
         // on threads page
         $this->get('/threads')
-            ->assertSee('Posted by '.$this->thread->creator->first_name.' '.$this->thread->creator->last_name);
+            ->assertSee($this->thread->creator->first_name.' '.$this->thread->creator->last_name);
 
         // on individual thread page
         $this->get($this->thread->path())
-            ->assertSee('Posted by '.$this->thread->creator->first_name.' '.$this->thread->creator->last_name);
+            ->assertSee($this->thread->creator->first_name.' '.$this->thread->creator->last_name);
     }
 
     public function test_user_can_filter_threads_according_to_a_channel()
