@@ -78,4 +78,25 @@ class ThreadsTest extends TestCase
             ->assertSee($threadByAuthUser->title)
             ->assertDontSee($threadNotByAuthUser->title);
     }
+
+    public function test_a_user_can_sort_threads_by_popularity()
+    {
+        // Given we have 3 threads
+        // with 2 replies, 3 replies and 0 replies
+        // when I filter all threads by popularity
+        // then they should return from most replies to least replies
+
+        $threadWithTwoReplies = create('App\Thread');
+        create('App\Reply', ['thread_id' => $threadWithTwoReplies->id], 2);
+
+        $threadWithThreeReplies = create('App\Thread');
+        create('App\Reply', ['thread_id' => $threadWithThreeReplies->id], 3);
+
+        $threadWithZeroReplies = $this->thread;
+
+        // returning json since it is easier to find order in array
+        $response = $this->getJson('/threads?popular=1')->json();
+
+        $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
+    }
 }

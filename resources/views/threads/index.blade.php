@@ -9,11 +9,14 @@
                         @foreach($threads as $thread)
                             <div class="card-body">
                                 <article>
-                                    <h4>
-                                        <a href="{{ $thread->path() }}">
-                                            {{ $thread->title }}
-                                        </a>
-                                    </h4>
+                                    <div class="level">
+                                        <h4 class="flex-grow-1">
+                                            <a href="{{ $thread->path() }}">
+                                                {{ $thread->title }}
+                                            </a>
+                                        </h4>
+                                        <strong>{{ $thread->replies_count }} {{ Str::plural('reply', $thread->replies_count) }}</strong>
+                                    </div>
                                     <h6>Posted by {{ $thread->creator->first_name }} {{ $thread->creator->last_name }}</h6>
                                     <div class="body">{{ $thread->body }}</div>
                                 </article>
