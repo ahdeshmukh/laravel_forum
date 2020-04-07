@@ -46,7 +46,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="/threads">All Threads</a>
                                 @if (auth()->check())
-                                    <a class="dropdown-item" href="/threads?user_id={{ auth()->id() }}">My Threads</a>
+                                    <a class="dropdown-item" href="/threads?userId={{ auth()->id() }}">My Threads</a>
                                 @endif
                                 <a class="dropdown-item" href="/threads?popular=1">Popular Threads</a>
                             </div>
