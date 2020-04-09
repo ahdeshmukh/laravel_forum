@@ -22,4 +22,12 @@ class ReplyTest extends TestCase
         $reply = create('App\Reply');
         $this->assertInstanceOf('App\User', $reply->owner);
     }
+
+    public function test_a_reply_may_have_a_favorite()
+    {
+        $reply = create('App\Reply');
+        $this->signIn();
+        $reply->favorites();
+        $this->assertInstanceOf('App\Favorite', $reply->favorite());
+    }
 }
