@@ -26,13 +26,17 @@ class FavoritesTest extends TestCase
 
         $reply = create('App\Reply'); // this automatically creates thread. refer ReplyFactory.php
 
-        $this->post("/replies/{$reply->id}/favorites")
+        /*$this->post("/replies/{$reply->id}/favorites")
             ->assertStatus(201)
             ->assertJson([
             'user_id' => auth()->id(),
             'favorited_id' => 1,
             'favorited_type' => 'replies',
-        ]);
+        ]);*/
+
+        $this->post("/replies/{$reply->id}/favorites");
+
+        $this->assertCount(1, $reply->favorites);
     }
 
     public function test_an_authenticated_user_can_favorite_a_reply_only_once()
