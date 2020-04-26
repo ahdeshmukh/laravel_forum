@@ -9,6 +9,8 @@ class Reply extends Model
     // https://laravel.com/docs/7.x/eloquent#mass-assignment
     protected $guarded = [];
 
+    protected $with = ['owner', 'favorites'];
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -30,6 +32,11 @@ class Reply extends Model
 
     public function isFavorited()
     {
-        return $this->favorites()->where('user_id', auth()->id())->exists();
+        return (bool)$this->favorites->where('user_id', auth()->id())->count();
+    }
+
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
     }
 }

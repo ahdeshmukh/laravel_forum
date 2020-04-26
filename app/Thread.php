@@ -10,6 +10,8 @@ class Thread extends Model
     // https://laravel.com/docs/7.x/eloquent#mass-assignment
     protected $guarded = [];
 
+    public $with = ['creator', 'channel'];
+
     // Laravel knows this function needs to be invoked automatically
     protected static function boot()
     {
@@ -30,9 +32,7 @@ class Thread extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class)
-                    ->withCount('favorites')
-                    ->with('owner');
+        return $this->hasMany(Reply::class);
     }
 
     public function creator()
