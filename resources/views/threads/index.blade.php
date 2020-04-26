@@ -17,7 +17,6 @@
                                         </h4>
                                         <strong>{{ $thread->replies_count }} {{ Str::plural('reply', $thread->replies_count) }}</strong>
                                     </div>
-                                    <h6>Posted by {{ $thread->creator->first_name }} {{ $thread->creator->last_name }}</h6>
                                     <div class="body">{{ $thread->body }}</div>
                                 </article>
                             </div>

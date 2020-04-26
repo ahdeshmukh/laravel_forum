@@ -33,7 +33,10 @@ class AppServiceProvider extends ServiceProvider
         // which produces table not found error
 
         View::composer('*', function($view) {
-           $view->with('channels', Channel::all());
+           $channels = \Cache::rememberForever('channels', function() {
+               return Channel::all();
+           });
+           $view->with('channels', $channels);
         });
 
         // https://josephsilber.com/posts/2018/07/02/eloquent-polymorphic-relations-morph-map
