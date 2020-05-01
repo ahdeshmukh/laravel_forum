@@ -22,6 +22,17 @@ class Thread extends Model
         static::addGlobalScope('replyCount', function($builder) {
             $builder->withCount('replies');
         });
+
+        // before deleting a thread, delete all replies for the thread
+        static::deleting(function($thread) {
+            //$thread->replies()->delete();
+
+            // have to use foreach or else deleting for deep nesting does not work. hence commenting above line
+            // https://stackoverflow.com/questions/45075845/automatically-deleting-nested-related-rows-in-laravel-5-4-eloquent-orm
+            foreach ($thread->replies as $reply) {
+                $reply->delete();
+            }
+        });
     }
 
     public function path()

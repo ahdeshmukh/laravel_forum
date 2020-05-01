@@ -116,9 +116,12 @@ class ThreadsController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy(Channel $channel, Thread $thread)
     {
-        //
+        // to make sure all replies to thread are deleted, code is added to the boot method of Thread model
+        $thread->delete();
+
+        return response([], 204);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CreateThreadsTest extends TestCase
+class ManageThreadsTest extends TestCase
 {
 
     use RefreshDatabase;
@@ -61,6 +61,38 @@ class CreateThreadsTest extends TestCase
 
         $this->publishThread(['channel_id' => 9999])
             ->assertSessionHasErrors('channel_id');
+    }
+
+    public function test_a_thread_can_be_deleted()
+    {
+        $this->signIn();
+
+        // create a thread
+        $thread = create('App\Thread');
+
+        // create a few replies to the thread
+        $reply1 = create('App\Reply', ['thread_id' => $thread->id]);
+        $reply2 = create('App\Reply', ['thread_id' => $thread->id]);
+
+        // favorite both the replies
+        $this->post("/replies/{$reply1->id}/favorites");
+        $this->post("/replies/{$reply2->id}/favorites");
+
+        // delete the thread
+        $response = $this->json('DELETE', $thread->path());
+
+        $response->assertStatus(204);
+
+        // ensure thread no longer exists in the DB
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+
+        // ensure replies to the thread no longer exist in the DB
+        $this->assertDatabaseMissing('replies', ['thread_id' => $thread->id]);
+
+        // ensure favorites for the replies no longer exist in the DB
+        $this->assertDatabaseMissing('favorites', ['favorited_type' => 'replies', 'favorited_id' => $reply1->id]);
+        $this->assertDatabaseMissing('favorites', ['favorited_type' => 'replies', 'favorited_id' => $reply2->id]);
+
     }
 
     public function publishThread($overrides = [])
