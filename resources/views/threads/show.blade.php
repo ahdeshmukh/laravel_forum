@@ -3,28 +3,33 @@
 @section('content')
     <div class="container">
 
-        <div class="row" style="margin-bottom:20px;">
+        <div class="row" >
 
             <div class="col-md-8">
 
                 <div class="card">
                     <div class="card-header">
-                        <h3>{{ $thread->title }}</h3>
+                        <div class="level">
+                            <h4 class="flex-grow-1">
+                                {{ $thread->title }}
+                            </h4>
+                            <form action="{{ $thread->path() }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-link">Delete</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <h5>{{ $thread->body }}</h5>
+                        {{ $thread->body }}
                     </div>
                 </div>
 
                 @foreach($replies as $reply)
-                    <div style="margin-top:10px;">
+                    <div class="mt-3">
                         @include('threads.reply')
                     </div>
                 @endforeach
-
-                <div style="margin-top:20px;">
-                    {{ $replies->links() }}
-                </div>
 
                 @if(auth()->check())
                     <div style="margin-top:20px;">

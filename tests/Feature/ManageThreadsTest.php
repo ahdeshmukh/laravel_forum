@@ -95,6 +95,17 @@ class ManageThreadsTest extends TestCase
 
     }
 
+    public function test_a_guest_cannot_delete_a_thread()
+    {
+        $thread = create('App\Thread');
+
+        $this->withExceptionHandling()
+            ->delete($thread->path())
+            ->assertRedirect('/login');
+    }
+
+
+
     public function publishThread($overrides = [])
     {
         $this->withExceptionHandling()->signIn();

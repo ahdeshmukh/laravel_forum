@@ -121,7 +121,11 @@ class ThreadsController extends Controller
         // to make sure all replies to thread are deleted, code is added to the boot method of Thread model
         $thread->delete();
 
-        return response([], 204);
+        if(request()->wantsJson()) {
+            return response([], 204);
+        }
+
+        return redirect('/threads');
     }
 
     /**
