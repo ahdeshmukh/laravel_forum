@@ -119,6 +119,14 @@ class ThreadsController extends Controller
     public function destroy(Channel $channel, Thread $thread)
     {
         // to make sure all replies to thread are deleted, code is added to the boot method of Thread model
+        if($thread->user_id != auth()->id()) {
+            if(request()->wantsJson()) {
+                return response(['status' => 'Permission Denied'], 403);
+            }
+
+            return redirect('/login');
+        }
+
         $thread->delete();
 
         if(request()->wantsJson()) {
