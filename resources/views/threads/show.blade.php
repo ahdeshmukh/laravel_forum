@@ -13,11 +13,13 @@
                             <h4 class="flex-grow-1">
                                 {{ $thread->title }}
                             </h4>
-                            <form action="{{ $thread->path() }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-link">Delete</button>
-                            </form>
+                            @can('update', $thread)
+                                <form action="{{ $thread->path() }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-link">Delete</button>
+                                </form>
+                            @endcan
                         </div>
                     </div>
                     <div class="card-body">

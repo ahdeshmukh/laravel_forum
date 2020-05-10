@@ -106,7 +106,7 @@ class ManageThreadsTest extends TestCase
 
         $this->signIn();
         $this->delete($thread->path())
-            ->assertRedirect('/login');
+            ->assertStatus(403);
     }
 
 

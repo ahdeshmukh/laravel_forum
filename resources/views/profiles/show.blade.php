@@ -15,8 +15,8 @@
                 <div class="card-header">
                     <div class="level">
                        <span class="flex-grow-1">
-                            <a href="#">{{ $thread->creator->first_name . ' ' . $thread->creator->last_name }}</a> posted:
-                           {{ $thread->title }}
+                           <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->first_name . ' ' . $thread->creator->last_name }}</a> posted:
+                           <a href="{{ $thread->path() }}">{{ $thread->title }}</a>
                        </span>
 
                         <span>{{ $thread->created_at->diffForHumans() }}</span>
