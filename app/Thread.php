@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Thread extends Model
+class Thread extends ForumBaseModel
 {
+
+    use RecordsActivity;
 
     // https://laravel.com/docs/7.x/eloquent#mass-assignment
     protected $guarded = [];

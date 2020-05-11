@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    use Favoritable;
+    use Favoritable, RecordsActivity;
 
     // https://laravel.com/docs/7.x/eloquent#mass-assignment
     protected $guarded = [];
