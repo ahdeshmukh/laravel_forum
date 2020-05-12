@@ -45,14 +45,9 @@ class ReadThreadsTest extends TestCase
 
     public function test_user_can_see_who_created_thread()
     {
-        // on threads page
-        /*$this->get('/threads')
-            ->assertSee($this->thread->creator->first_name.' '.$this->thread->creator->last_name);
-        */
-
-        // on individual thread page
+        // faced this https://laracasts.com/discuss/channels/testing/phpunit-fails-or-passes-randomly
         $this->get($this->thread->path())
-            ->assertSee($this->thread->creator->first_name.' '.$this->thread->creator->last_name);
+            ->assertSee(e($this->thread->creator->first_name.' '.$this->thread->creator->last_name));
     }
 
     public function test_user_can_filter_threads_according_to_a_channel()
