@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Traits\Favoritable;
+use App\Traits\RecordsActivity;
+
 class Reply extends ForumBaseModel
 {
     use Favoritable, RecordsActivity;

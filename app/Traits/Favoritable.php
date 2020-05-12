@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Traits;
 
+use App\Favorite;
 
 trait Favoritable
 {

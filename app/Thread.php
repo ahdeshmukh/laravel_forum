@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Traits\RecordsActivity;
+
 class Thread extends ForumBaseModel
 {
 
