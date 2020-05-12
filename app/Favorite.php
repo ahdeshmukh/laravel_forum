@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Favorite extends Model
+class Favorite extends ForumBaseModel
 {
     protected $guarded = [];
 
