@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Activity;
+
 trait RecordsActivity
 {
 
@@ -35,7 +37,7 @@ trait RecordsActivity
 
     public function activity()
     {
-        return $this->morphMany('App\Activity', 'subject');
+        return $this->morphMany(Activity::class, 'subject');
     }
 
     protected function getActivityType($event)

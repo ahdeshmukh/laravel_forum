@@ -23,7 +23,7 @@ class ActivityTest extends TestCase
             'type' => 'created_thread',
             'user_id' => auth()->id(),
             'subject_id' => $thread->id,
-            'subject_type' => 'App\Thread'
+            'subject_type' => 'thread'
         ]);
 
         $this->assertEquals($activity->subject->id, $thread->id);
@@ -33,7 +33,7 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply');
+        create('App\Reply');
 
         // we expect 2 activities, 1 for creating a reply and 1 for creating a thread
         // reason being, a thread is auto created when a reply is created
