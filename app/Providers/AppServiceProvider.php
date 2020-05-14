@@ -42,7 +42,9 @@ class AppServiceProvider extends ServiceProvider
         // https://josephsilber.com/posts/2018/07/02/eloquent-polymorphic-relations-morph-map
         // this is to ensure we can store "replies" instead of "App\Reply" in favorited_type column in favorites table
         Relation::morphMap([
-            'replies' => 'App\Reply'
+            'reply' => 'App\Reply',
+            'activity' => 'App\Activity',
+            'thread' => 'App\Thread'
         ]);
     }
 }
