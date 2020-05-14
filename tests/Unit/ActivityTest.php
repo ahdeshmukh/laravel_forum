@@ -29,6 +29,22 @@ class ActivityTest extends TestCase
         $this->assertEquals($activity->subject->id, $thread->id);
     }
 
+    public function test_it_records_an_activity_when_thread_is_deleted()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread');
+
+        $thread->delete();
+
+        $this->assertDatabaseHas('activities', [
+            'type' => 'created_thread',
+            'user_id' => auth()->id(),
+            'subject_id' => $thread->id,
+            'subject_type' => 'thread'
+        ]);
+    }
+
     public function test_it_records_an_activity_when_a_reply_is_created()
     {
         $this->signIn();
