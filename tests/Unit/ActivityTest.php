@@ -20,29 +20,14 @@ class ActivityTest extends TestCase
         $activity = Activity::first();
 
         $this->assertDatabaseHas('activities', [
-            'type' => 'created_thread',
+            'type' => 'created',
             'user_id' => auth()->id(),
             'subject_id' => $thread->id,
-            'subject_type' => 'thread'
+            'subject_type' => 'thread',
+            'id' => 1
         ]);
 
         $this->assertEquals($activity->subject->id, $thread->id);
-    }
-
-    public function test_it_records_an_activity_when_thread_is_deleted()
-    {
-        $this->signIn();
-
-        $thread = create('App\Thread');
-
-        $thread->delete();
-
-        $this->assertDatabaseHas('activities', [
-            'type' => 'created_thread',
-            'user_id' => auth()->id(),
-            'subject_id' => $thread->id,
-            'subject_type' => 'thread'
-        ]);
     }
 
     public function test_it_records_an_activity_when_a_reply_is_created()
@@ -56,5 +41,13 @@ class ActivityTest extends TestCase
         // Ref ReplyFactory.php
 
         $this->assertEquals(2, Activity::count());
+
+        $this->assertDatabaseHas('activities', [
+            'type' => 'created',
+            'user_id' => auth()->id(),
+            'subject_id' => 1,
+            'subject_type' => 'reply',
+            'id' => 2
+        ]);
     }
 }
