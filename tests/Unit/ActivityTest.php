@@ -20,7 +20,7 @@ class ActivityTest extends TestCase
         $activity = Activity::first();
 
         $this->assertDatabaseHas('activities', [
-            'type' => 'created',
+            'type' => 'created_thread',
             'user_id' => auth()->id(),
             'subject_id' => $thread->id,
             'subject_type' => 'thread',
@@ -43,7 +43,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(2, Activity::count());
 
         $this->assertDatabaseHas('activities', [
-            'type' => 'created',
+            'type' => 'created_reply',
             'user_id' => auth()->id(),
             'subject_id' => 1,
             'subject_type' => 'reply',
