@@ -70,8 +70,9 @@ class Thread extends ForumBaseModel
     }
 
     // record activity event when thread is created or deleted
-    protected static function getActivitiesToRecord()
+    /*protected static function getActivitiesToRecord()
     {
         return ['created', 'deleted'];
-    }
+    }*/
+
 }
