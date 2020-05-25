@@ -56,8 +56,8 @@ class ReadThreadsTest extends TestCase
         $threadNotInChannel = create('App\Thread');
 
         $this->get('/threads/'.$channel->slug)
-            ->assertSee($threadInChannel->title)
-            ->assertDontSee($threadNotInChannel->title);
+            ->assertSee(e($threadInChannel->title))
+            ->assertDontSee(e($threadNotInChannel->title));
     }
 
     public function test_a_user_can_filter_threads_by_userId()
