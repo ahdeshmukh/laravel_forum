@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Activity;
@@ -49,5 +50,40 @@ class ActivityTest extends TestCase
             'subject_type' => 'reply',
             'id' => 2
         ]);
+    }
+
+    public function test_it_fetches_a_feed_for_any_user()
+    {
+        // Given we have a thread
+        // And another thread from a week ago
+        // when we fetch the user feed
+        // then it should be returned in the correct format
+
+        $this->signIn();
+
+        create('App\Thread', ['user_id' => auth()->id()]);
+
+        create('App\Thread', [
+            'user_id' => auth()->id(),
+            'created_at' => Carbon::now()->subWeek()
+        ]);
+
+        // If a thread is created a week ago, so is the activity
+        // to simulate it, getting the first user activity and changing it's created at to a week ago
+
+        auth()->user()->activity()->first()->update([
+            'created_at' => Carbon::now()->subWeek()
+        ]);
+
+
+        $feed = Activity::feed(auth()->user(), 50);
+
+        $this->assertTrue($feed->keys()->contains(
+           Carbon::now()->format('Y-m-d')
+        ));
+
+        $this->assertTrue($feed->keys()->contains(
+            Carbon::now()->subWeek()->format('Y-m-d')
+        ));
     }
 }
