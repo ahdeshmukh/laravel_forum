@@ -10,26 +10,8 @@
             </h1>
         </div>
 
-        @foreach($threads as $thread)
-            <div class="card mt-4">
-                <div class="card-header">
-                    <div class="level">
-                       <span class="flex-grow-1">
-                           <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->first_name . ' ' . $thread->creator->last_name }}</a> posted:
-                           <a href="{{ $thread->path() }}">{{ $thread->title }}</a>
-                       </span>
-
-                        <span>{{ $thread->created_at->diffForHumans() }}</span>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    {{ $thread->body }}
-                </div>
-            </div>
+        @foreach($activities as $activity)
+            @include("activities.{$activity->type}")
         @endforeach
-        <div class="mt-4">
-            {{ $threads->links() }}
-        </div>
     </div>
 @endsection
