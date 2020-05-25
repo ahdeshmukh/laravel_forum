@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Activity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -90,8 +91,15 @@ class ManageThreadsTest extends TestCase
         $this->assertDatabaseMissing('replies', ['thread_id' => $thread->id]);
 
         // ensure favorites for the replies no longer exist in the DB
-        $this->assertDatabaseMissing('favorites', ['favorited_type' => 'replies', 'favorited_id' => $reply1->id]);
-        $this->assertDatabaseMissing('favorites', ['favorited_type' => 'replies', 'favorited_id' => $reply2->id]);
+        $this->assertDatabaseMissing('favorites', ['favorited_type' => 'reply', 'favorited_id' => $reply1->id]);
+        $this->assertDatabaseMissing('favorites', ['favorited_type' => 'reply', 'favorited_id' => $reply2->id]);
+
+
+        // ensure that when a thread is deleted, it's corresponding activity is deleted
+        // if the deleted thread has replies which are also deleted, ensure the corresponding activity for replies is deleted
+
+        // in short for this test, we have to make sure there are 0 activity records
+        $this->assertEquals(0, Activity::count());
 
     }
 
