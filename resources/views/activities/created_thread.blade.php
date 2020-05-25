@@ -1,14 +1,12 @@
-<div class="card mt-4">
-    <div class="card-header">
-        <div class="level">
-            <span class="flex-grow-1">
-                {{ $profileUser->first_name .' ' . $profileUser->last_name }} published
-                <a href="{{$activity->subject->path()}}">"{{$activity->subject->title}}"</a>
-            </span>
-        </div>
-    </div>
+@component('activities.activity')
+    @slot('heading')
+        {{ $profileUser->first_name .' ' . $profileUser->last_name }} published
+        <a href="{{$activity->subject->path()}}">
+            "{{$activity->subject->title}}"
+        </a>
+    @endslot
 
-    <div class="card-body">
+    @slot('body')
         {{ $activity->subject->body }}
-    </div>
-</div>
+    @endslot
+@endcomponent
