@@ -39,4 +39,10 @@ class Reply extends ForumBaseModel
         return $this->belongsTo(Thread::class, 'thread_id');
     }
 
+    // returns path of thread and scrolls directly to reply
+    public function path()
+    {
+        return $this->thread->path()."#reply-{$this->id}";
+    }
+
 }

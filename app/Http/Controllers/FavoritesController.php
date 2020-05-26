@@ -16,7 +16,8 @@ class FavoritesController extends Controller
     {
         $reply->favorite();
 
-        return back(); // redirecting to page from where Favorite button was clicked
+        // redirecting to page from where Favorite button was clicked
+        return back()->with('flash', 'You favorited a reply');
 
     }
 }

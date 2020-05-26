@@ -44,7 +44,8 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             'reply' => 'App\Reply',
             'activity' => 'App\Activity',
-            'thread' => 'App\Thread'
+            'thread' => 'App\Thread',
+            'favorite' => 'App\Favorite'
         ]);
     }
 }
