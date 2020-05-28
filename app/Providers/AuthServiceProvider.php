@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Thread' => 'App\Policies\ThreadPolicy',
+        'App\Reply' => 'App\Policies\ReplyPolicy',
     ];
 
     /**
@@ -26,8 +27,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function(User $user) {
+        // this is to bypass all policies for any particular user. write your business rules here
+        /*Gate::before(function(User $user) {
            if($user->first_name == 'John' && $user->last_name == 'Doe') return true;
-        });
+        });*/
     }
 }

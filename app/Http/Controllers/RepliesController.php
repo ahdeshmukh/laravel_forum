@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use App\Channel;
-use Illuminate\Http\Request;
+use App\Reply;
 
 class RepliesController extends Controller
 {
@@ -25,5 +25,15 @@ class RepliesController extends Controller
         ]);
 
         return back()->with('flash', 'Your reply has been posted.');
+    }
+
+
+    public function destroy(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+
+        $reply->delete();
+
+        return back()->with('flash', 'Reply deleted');
     }
 }
